@@ -1,12 +1,15 @@
-## DICOM Tag Modifier Script
+# Useful Dicom Scripts
+This repository contains scripts to manipulate DICOM files by updating specific tags or creating new studies from existing ones. These scripts are designed to be modular, allowing usage as standalone applications or imported as modules in other Python projects.
 
-This script allows you to update the value of a specified DICOM tag across all DICOM files in a given directory. It's designed to be run as a standalone script or be imported as a module in other Python scripts.
-
-### Installation
+## Installation
 Clone this repo and add it to your terminal's `$PATH` variable, example (.zshrc)
 ```
 export PATH=$PATH:/home/hasan/work/useful-scripts/src
 ```
+## DICOM Tag Modifier Script
+
+This script allows you to update the value of a specified DICOM tag across all DICOM files in a given directory. It's designed to be run as a standalone script or be imported as a module in other Python scripts.
+
 ### Usage
 
 
