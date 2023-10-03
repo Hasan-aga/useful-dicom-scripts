@@ -12,7 +12,7 @@ There are two types of operations:
 ## Installation
 Clone this repo and add it to your terminal's `$PATH` variable, example (.zshrc)
 ```
-export PATH=$PATH:/home/hasan/work/useful-scripts/src
+export PATH=$PATH:/home/hasan/work/useful-dicom-scripts/src
 ```
 
 Note that because the scripts use the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) at the top, you can run them without writing the `python` keyword in the terminal.
