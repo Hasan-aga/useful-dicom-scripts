@@ -31,7 +31,7 @@ python modifydicomtag.py ./dicom_files "BodyPartExamined" "Head"
 #### As a Module:
 
 ```python
-import modifydicomtag
+import modify_dicom_tag
 
 # Define the parameters
 directory_path = './dicom_files'
@@ -39,7 +39,7 @@ dicom_tag_name = 'BodyPartExamined'
 new_value = 'Head'
 
 # Call the function
-modifydicomtag.update_dicom_tag_in_directory(directory_path, dicom_tag_name, new_value)
+modify_dicom_tag.update_dicom_tag_in_directory(directory_path, dicom_tag_name, new_value)
 ```
 
 ### Dependencies
