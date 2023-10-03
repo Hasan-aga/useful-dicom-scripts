@@ -130,4 +130,4 @@ generalScanTwoTags.py . "SeriesDescription" "BodypartExamined"
 
 ### Notes
 
-sThe script only reports unique values, if the same combination appears twice it will displayed as one.
+The script only reports unique values, if the same combination appears twice it will displayed as one.
