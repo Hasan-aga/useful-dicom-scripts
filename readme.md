@@ -2,7 +2,13 @@
 
 This script allows you to update the value of a specified DICOM tag across all DICOM files in a given directory. It's designed to be run as a standalone script or be imported as a module in other Python scripts.
 
+### Installation
+Clone this repo and add it to your terminal's `$PATH` variable, example (.zshrc)
+```
+export PATH=$PATH:/home/hasan/work/useful-scripts/src
+```
 ### Usage
+
 
 #### Standalone:
 
