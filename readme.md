@@ -15,7 +15,7 @@ Clone this repo and add it to your terminal's `$PATH` variable, example (.zshrc)
 export PATH=$PATH:/home/hasan/work/useful-scripts/src
 ```
 
-Notice that because the scripts the shebang tag at the top, you can run them without needing to write `python` keyword in the terminal.
+Note that because the scripts use the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) at the top, you can run them without writing the `python` keyword in the terminal.
 ## DICOM Tag Modifier Script
 
 This script allows you to update the value of a specified DICOM tag across all DICOM files in a given directory. It's designed to be run as a standalone script or be imported as a module in other Python scripts.
