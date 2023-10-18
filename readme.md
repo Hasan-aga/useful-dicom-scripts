@@ -131,3 +131,51 @@ generalScanTwoTags.py . "SeriesDescription" "BodypartExamined"
 ### Notes
 
 The script only reports unique values, if the same combination appears twice it will displayed as one.
+
+Certainly! Here's a simple `README.md` for the script:
+
+---
+
+## DICOM Metadata Extractor
+
+This script allows users to extract specific metadata tags from DICOM files in a given directory and save them as a CSV report.
+
+### Requirements
+
+- Python 3.x
+- `pydicom` library
+
+You can install the required library using pip:
+
+```bash
+pip install pydicom
+```
+
+### Usage
+
+```bash
+python script_name.py <directory_path> tag1 tag2 tag3 ... etc [--unique]
+```
+
+- `<directory_path>`: The path to the directory containing the DICOM files.
+- `tag1, tag2, tag3, ...`: The DICOM tags you want to extract.
+- `--unique`: (Optional) If provided, the script will only output unique entries in the CSV report.
+
+### Example
+
+```bash
+python script_name.py /path/to/dicom/files PatientName StudyDate Modality --unique
+```
+
+This will scan all DICOM files in `/path/to/dicom/files`, extract the `PatientName`, `StudyDate`, and `Modality` tags, and save only the unique entries to a CSV report.
+
+### Output
+
+The script will create a CSV report named `output.csv` in the provided directory path. The report will have the extracted tags as headers.
+
+### Notes
+
+- If a DICOM tag contains multiple values, they will be joined with a `|` character in the CSV.
+- If the script encounters any issues reading a DICOM file or extracting a tag, it will print an error message to the console.
+
+---
