@@ -1,19 +1,32 @@
+# Useful Dicom Scripts
+This repository contains scripts to manipulate/read DICOM files by updating specific tags or creating new studies from existing ones. 
+These scripts are designed to be modular, allowing usage as standalone applications or imported as modules in other Python projects.
+
+There are two types of operations:
+
+  1.  Manipulating a dicom tag (create_study_from, modify_dicom_tag)
+  2.  Reading a dicom tag (generalScanTwoTags)
+
+
+
+## Installation
+Clone this repo and add it to your terminal's `$PATH` variable, example (.zshrc)
+```
+export PATH=$PATH:/home/hasan/work/useful-dicom-scripts/src
+```
+
+Note that because the scripts use the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) at the top, you can run them without writing the `python` keyword in the terminal.
 ## DICOM Tag Modifier Script
 
 This script allows you to update the value of a specified DICOM tag across all DICOM files in a given directory. It's designed to be run as a standalone script or be imported as a module in other Python scripts.
 
-### Installation
-Clone this repo and add it to your terminal's `$PATH` variable, example (.zshrc)
-```
-export PATH=$PATH:/home/hasan/work/useful-scripts/src
-```
 ### Usage
 
 
 #### Standalone:
 
 ```bash
-python modifydicomtag.py <directory_path> <dicom_tag_name> <value>
+modifydicomtag.py <directory_path> <dicom_tag_name> <value>
 ```
 
 - `<directory_path>`: Path to the directory containing the DICOM files.
@@ -22,13 +35,13 @@ python modifydicomtag.py <directory_path> <dicom_tag_name> <value>
 
 Example:
 ```bash
-python modifydicomtag.py ./dicom_files "BodyPartExamined" "Head"
+smodifydicomtag.py ./dicom_files "BodyPartExamined" "Head"
 ```
 
 #### As a Module:
 
 ```python
-import modifydicomtag
+import modify_dicom_tag
 
 # Define the parameters
 directory_path = './dicom_files'
@@ -36,7 +49,7 @@ dicom_tag_name = 'BodyPartExamined'
 new_value = 'Head'
 
 # Call the function
-modifydicomtag.update_dicom_tag_in_directory(directory_path, dicom_tag_name, new_value)
+modify_dicom_tag.update_dicom_tag_in_directory(directory_path, dicom_tag_name, new_value)
 ```
 
 ### Dependencies
@@ -66,7 +79,7 @@ This script is utilized to create a new study from an existing study by modifyin
 ### Usage
 
 ```bash
-python create_new_study.py <source_directory> [--new-study-id <new_study_id>] [--new-patient-id <new_patient_id>]
+create_new_study.py <source_directory> [--new-study-id <new_study_id>] [--new-patient-id <new_patient_id>]
 ```
 
 ### Arguments
@@ -89,16 +102,32 @@ This script depends on the `modify_dicom_tag.py` script to perform the DICOM tag
 
 Create a new study with a random Study Instance UID:
 ```bash
-python create_new_study.py /path/to/existing/study
+create_new_study.py /path/to/existing/study
 ```
 
 Create a new study with a specified Study Instance UID and a new Patient ID:
 ```bash
-python create_new_study.py /path/to/existing/study --new-study-id 1.2.3.4.5 --new-patient-id NEWPATIENTID
+create_new_study.py /path/to/existing/study --new-study-id 1.2.3.4.5 --new-patient-id NEWPATIENTID
 ```
 
 ### Notes
 
 - The DICOM files in the specified directory will be modified in-place. Ensure to have backups or work on a copy of the original data to prevent any data loss.
-- The script will print a message when modifying the 'PatientID' and 'PatientName' tags, indicating the new patient ID being set.
 - This script uses the `pydicom` library to generate new UIDs and to read and write DICOM files. Ensure `pydicom` is installed in your Python environment.
+
+## General scan two tags
+This script scans a directory of dicom files generating a list of all unique combinations of the given two tags.
+
+Example:
+```
+generalScanTwoTags.py <directory_path> tag1 tag2
+```
+
+For example, If I wanted to know all the possible values of the `BodypartExamined` tag grouped by `SeriesDescription` I can do that using this command:
+```
+generalScanTwoTags.py . "SeriesDescription" "BodypartExamined"
+```
+
+### Notes
+
+The script only reports unique values, if the same combination appears twice it will displayed as one.
