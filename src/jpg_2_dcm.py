@@ -37,8 +37,9 @@ def convert_jpg_to_dcm(jpg_path, example_dcm_path, output_path):
     # Update pixel data
     rows, columns, _ = jpg_data.shape
     new_dcm.Rows, new_dcm.Columns = rows, columns
-    new_dcm.PhotometricInterpretation = "RGB"
+    # new_dcm.PhotometricInterpretation = "RGB"
     new_dcm.SamplesPerPixel = 3
+    print(example_dcm.PixelRepresentation)
     new_dcm.BitsAllocated = 8
     new_dcm.BitsStored = 8
     new_dcm.HighBit = 7
