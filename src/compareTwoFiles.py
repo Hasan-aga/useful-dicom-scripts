@@ -52,9 +52,11 @@ def compare_dicom_tags(file1_path, file2_path):
 
     print("\nDiffering Tags:")
     for tag in differing_tags:
-        print(f"{tag}:")
+        tag_name = tags1[tag].name if hasattr(tags1[tag], 'name') else str(tag)
+        print(f"{tag_name} {tag}:")
         print(colored(f"  File 1: {truncate_value(tags1[tag].value)}", 'red'))
         print(colored(f"  File 2: {truncate_value(tags2[tag].value)}", 'green'))
+        print()
 
 if __name__ == "__main__":
     if len(sys.argv) !=3:
