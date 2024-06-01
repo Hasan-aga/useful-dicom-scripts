@@ -39,7 +39,7 @@ def write_dicom_tags_to_file(dicom, file_path):
             value = truncate_value(elem.value)
             f.write(f"{tag_name} {elem.tag}: {value}\n")
             
-def use_git(file1_path, file2_path):
+def use_git(file1_path, file2_path, git_diff_args):
     # Load the DICOM files
     dicom1, dicom2 = load_dicom_file(file1_path, file2_path)
         # Create temporary files to store the metadata
@@ -52,9 +52,11 @@ def use_git(file1_path, file2_path):
         write_dicom_tags_to_file(dicom1, temp1_path)
         write_dicom_tags_to_file(dicom2, temp2_path)
 
+        git_diff_command = ['git', 'diff', '--no-index', temp1_path, temp2_path] + git_diff_args
+
         # Use git diff to compare the temporary files
-        result = subprocess.run(['git', 'diff', '--no-index', temp1_path, temp2_path], capture_output=True, text=True)
-        
+        result = subprocess.run(git_diff_command, capture_output=True, text=True)
+
         # Use rich to display the diff output with color
         console = Console()
         syntax = Syntax(result.stdout, "diff", theme="ansi_dark")
@@ -116,13 +118,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compare DICOM tags between two files.")
     parser.add_argument("file1", help="Path to the first DICOM file.")
     parser.add_argument("file2", help="Path to the second DICOM file.")
-    parser.add_argument("--git", action="store_true", help="Use git diff to compare the DICOM files")
     parser.add_argument("--all", action="store_true", help="Display all tags including common and unique tags.")
+    parser.add_argument("git_and_args", nargs=argparse.REMAINDER, help="Additional arguments for git diff")
 
 
     args = parser.parse_args()
     
-    if args.git:
-        use_git(args.file1, args.file2)
+    if "--git" in args.git_and_args:
+        use_git(args.file1, args.file2, args.git_and_args[1:])
     else:
         compare_dicom_tags(args.file1, args.file2, args.all)
