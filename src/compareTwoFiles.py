@@ -115,11 +115,11 @@ def compare_dicom_tags(file1_path, file2_path, show_all=False):
         print()
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Compare DICOM tags between two files.")
+    parser = argparse.ArgumentParser(description="Compare DICOM tags between two files. By default, only differing tags are displayed. You can also choose to calculate and display the diff using Git.", epilog="Example: python compareTwoFiles.py file1.dcm file2.dcm")
     parser.add_argument("file1", help="Path to the first DICOM file.")
     parser.add_argument("file2", help="Path to the second DICOM file.")
     parser.add_argument("--all", action="store_true", help="Display all tags including common and unique tags.")
-    parser.add_argument("git_and_args", nargs=argparse.REMAINDER, help="Additional arguments for git diff")
+    parser.add_argument("git_and_args", nargs=argparse.REMAINDER, help="Pass --git followed by any git diff args to use git for comparison. Example: python compareTwoFiles.py file1.dcm file2.dcm --git --color-words")
 
 
     args = parser.parse_args()
