@@ -1,27 +1,28 @@
 # Useful Dicom Scripts
-This repository contains scripts to manipulate/read DICOM files by updating specific tags or creating new studies from existing ones. 
+
+This repository contains scripts to manipulate/read DICOM files by updating specific tags or creating new studies from existing ones.
 These scripts are designed to be modular, allowing usage as standalone applications or imported as modules in other Python projects.
 
 There are two types of operations:
 
-  1.  Manipulating a dicom tag (create_study_from, modify_dicom_tag)
-  2.  Reading a dicom tag (generalScanTwoTags)
-
-
+1.  Manipulating a dicom tag (create_study_from, modify_dicom_tag)
+2.  Reading a dicom tag (generalScanTwoTags)
 
 ## Installation
+
 Clone this repo and add it to your terminal's `$PATH` variable, example (.zshrc)
+
 ```
 export PATH=$PATH:/home/hasan/work/useful-dicom-scripts/src
 ```
 
-Note that because the scripts use the [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) at the top, you can run them without writing the `python` keyword in the terminal.
+Note that because the scripts use the [shebang](<https://en.wikipedia.org/wiki/Shebang_(Unix)>) at the top, you can run them without writing the `python` keyword in the terminal.
+
 ## DICOM Tag Modifier Script
 
 This script allows you to update the value of a specified DICOM tag across all DICOM files in a given directory. It's designed to be run as a standalone script or be imported as a module in other Python scripts.
 
 ### Usage
-
 
 #### Standalone:
 
@@ -34,6 +35,7 @@ modifydicomtag.py <directory_path> <dicom_tag_name> <value>
 - `<value>`: New value for the specified DICOM tag.
 
 Example:
+
 ```bash
 smodifydicomtag.py ./dicom_files "BodyPartExamined" "Head"
 ```
@@ -55,8 +57,9 @@ modify_dicom_tag.update_dicom_tag_in_directory(directory_path, dicom_tag_name, n
 ### Dependencies
 
 - `pydicom`: A Python package for working with DICOM files.
-  
+
   Install via pip:
+
   ```bash
   pip install pydicom
   ```
@@ -101,11 +104,13 @@ This script depends on the `modify_dicom_tag.py` script to perform the DICOM tag
 ### Examples
 
 Create a new study with a random Study Instance UID:
+
 ```bash
 create_new_study.py /path/to/existing/study
 ```
 
 Create a new study with a specified Study Instance UID and a new Patient ID:
+
 ```bash
 create_new_study.py /path/to/existing/study --new-study-id 1.2.3.4.5 --new-patient-id NEWPATIENTID
 ```
@@ -116,14 +121,17 @@ create_new_study.py /path/to/existing/study --new-study-id 1.2.3.4.5 --new-patie
 - This script uses the `pydicom` library to generate new UIDs and to read and write DICOM files. Ensure `pydicom` is installed in your Python environment.
 
 ## General scan two tags
+
 This script scans a directory of dicom files generating a list of all unique combinations of the given two tags.
 
 Example:
+
 ```
 generalScanTwoTags.py <directory_path> tag1 tag2
 ```
 
 For example, If I wanted to know all the possible values of the `BodypartExamined` tag grouped by `SeriesDescription` I can do that using this command:
+
 ```
 generalScanTwoTags.py . "SeriesDescription" "BodypartExamined"
 ```
@@ -179,3 +187,27 @@ The script will create a CSV report named `output.csv` in the provided directory
 - If the script encounters any issues reading a DICOM file or extracting a tag, it will print an error message to the console.
 
 ---
+
+## Compare two files
+
+This script enables comparing the metadata of two Dicom files.
+
+### Requirements
+
+- pydicom
+- rich
+- termcolor
+
+You can install them via
+
+```bash
+pip install pydicom rich termcolor
+```
+
+### Usage
+
+```bash
+compareTwoFiles.py file1.dcm file2.dcm [--all] [--git --color-words]
+```
+
+![example output](image.png)
