@@ -11,11 +11,8 @@ def update_dicom_tag_in_directory(directory, tag_name, value):
                 filepath = os.path.join(root, file)
                 try:
                     ds = pydicom.dcmread(filepath)
-                    if hasattr(ds, tag_name):
-                        setattr(ds, tag_name, value)
-                        ds.save_as(filepath)
-                    else:
-                        print(f"'{tag_name}' not found in {filepath}. Skipping...")
+                    setattr(ds, tag_name, value)
+                    ds.save_as(filepath)
                 except Exception as e:
                     print(f"Failed to process {filepath}: {e}")
 
